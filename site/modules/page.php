@@ -1,0 +1,23 @@
+<?php
+
+class Page
+{
+    private string $template;
+
+    public function __construct($template)
+    {
+        $this->template = $template;
+    }
+
+    public function Render($data)
+    {
+        // Загружаем HTML-шаблон и подставляем значения вида {{key}}.
+        $content = file_get_contents($this->template);
+
+        foreach ($data as $key => $value) {
+            $content = str_replace("{{" . $key . "}}", $value, $content);
+        }
+
+        return $content;
+    }
+}
